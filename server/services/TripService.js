@@ -11,20 +11,20 @@ var Trip = require('../models/Trip');
 module.exports = function() {
 
   /**
-   * Returns a list of questions that match the supplied criteria
+   * Returns a list of trips that match the supplied criteria
    *
    * @param {object} criteria
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(questions)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(trips)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var list = function(criteria, onSuccess, onFailure) {
     // Sanitize params
     Params.required('criteria', criteria, 'object').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // List questions
-    Trip.find(criteria, function(error, questions) {
+    // List trips
+    Trip.find(criteria, function(error, trips) {
       if(!error) {
-        onSuccess(questions);
+        onSuccess(trips);
       }
       else {
         onFailure(error);
@@ -33,20 +33,20 @@ module.exports = function() {
   };
 
   /**
-   * Finds a question w/ the supplied id
+   * Finds a trip w/ the supplied id
    *
    * @param {string} id
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(trip)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var findById = function(id, onSuccess, onFailure) {
     // Sanitize params
     Params.required('id', id, 'string').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Find question
-   Trip.findById(id, function(error, question) {
+    // Find trip
+   Trip.findById(id, function(error, trip) {
       if(!error) {
-        onSuccess(question);
+        onSuccess(trip);
       }
       else {
         onFailure(error);
@@ -55,16 +55,16 @@ module.exports = function() {
   };
 
   /**
-   * Saves the supplied question
+   * Saves the supplied trip
    *
-   * @param {object} question
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {object} trip
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(trip)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var save = function(trip, onSuccess, onFailure) {
     // Sanitize params
     Params.required('trip', trip, 'object');
-    // Save question
+    // Save trip
     if(trip._id) {
       update(trip, onSuccess, onFailure);
     }
@@ -74,17 +74,17 @@ module.exports = function() {
   };
 
   /**
-   * Deletes the question w/ the supplied id
+   * Deletes the trip w/ the supplied id
    *
    * @param {string} id
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(trip)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var deleteById = function(id, onSuccess, onFailure) {
     // Sanitize params
     Params.required('id', id, 'string').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Delete question
+    // Delete trip
     Trip.findByIdAndRemove(id, function(error, trip) {
       if(!error) {
         onSuccess(trip);
@@ -96,17 +96,17 @@ module.exports = function() {
   };
 
   /**
-   * Creates the supplied question
+   * Creates the supplied trip
    *
-   * @param {object} question
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {object} trip
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(trip)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var create = function(trip, onSuccess, onFailure) {
     // Sanitize params
     Params.required('trip', trip, 'object').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Create question
+    // Create trip
     new Trip(trip).save(function(error, savedTrip) {
       if(!error) {
         onSuccess(savedTrip);
@@ -118,17 +118,17 @@ module.exports = function() {
   };
 
   /**
-   * Updates the supplied question
+   * Updates the supplied trip
    *
-   * @param {object} question
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {object} trip
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(trip)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var update = function(trip, onSuccess, onFailure) {
     // Sanitize params
-    Params.required('trip', question, 'object');
+    Params.required('trip', trip, 'object');
     var onFailure = onFailure || _.noop;
-    // Update question
+    // Update trip
     Trip.findByIdAndUpdate(trip._id, {
       $set: trip
     }, function(error) {

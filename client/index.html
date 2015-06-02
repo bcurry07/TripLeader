@@ -19,27 +19,56 @@
     <!-- endinject -->
   </head>
   <body ng-app="app" ng-controller="LayoutController">
+  <nav class="navbar navbar-default">
+      <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Brand</a>
+          </div>
 
-    <nav class="navbar navbar-info navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="/" class="navbar-brand">Interview Question Database</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse navbar-right">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                  <h1>{{loggedIn}}</h1>
+                  <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+                  <li><a href="#/register">Register as new Trip Leader</a></li>
+                  <li ng-hide="loggedIn"><a href="#/login">Sign In</a></li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span ng-show="loggedIn">Welcome -Trip Leader- <span class="caret"></span></span></a>
+                      <ul ng-show="loggedIn" class="dropdown-menu" role="menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Separated link</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">One more separated link</a></li>
+                      </ul>
+                  </li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="#">Link</a></li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Separated link</a></li>
+                      </ul>
+                  </li>
+              </ul>
+          </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+  </nav>
 
     <content>
       <div class="container" ng-view="">
@@ -86,7 +115,11 @@
     <!-- inject:js -->
     <script src="/js/app.js"></script>
     <script src="/js/controllers/LayoutController.js"></script>
+    <script src="/js/controllers/LoginController.js"></script>
     <script src="/js/controllers/MainController.js"></script>
+    <script src="/js/controllers/RegisterController.js"></script>
+    <script src="/js/services/DataServices.js"></script>
+    <script src="/js/services/LoginService.js"></script>
     <!-- endinject -->
   </body>
 </html>

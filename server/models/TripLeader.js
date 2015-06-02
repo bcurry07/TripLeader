@@ -10,8 +10,8 @@ var Mongoose = require('mongoose');
 // Create Mongoose schema
 var TripLeaderSchema = new Mongoose.Schema({
   name: {
-    type: String,
-    index: { unique: true}
+    type: String
+//    index: { unique: true}
   },
   password: {
     type: String

@@ -11,20 +11,20 @@ var Order = require('../models/Order');
 module.exports = function() {
 
   /**
-   * Returns a list of questions that match the supplied criteria
+   * Returns a list of orders that match the supplied criteria
    *
    * @param {object} criteria
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(questions)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(orders)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var list = function(criteria, onSuccess, onFailure) {
     // Sanitize params
     Params.required('criteria', criteria, 'object').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // List questions
-    Order.find(criteria, function(error, questions) {
+    // List orders
+    Order.find(criteria, function(error, orders) {
       if(!error) {
-        onSuccess(questions);
+        onSuccess(orders);
       }
       else {
         onFailure(error);
@@ -33,20 +33,20 @@ module.exports = function() {
   };
 
   /**
-   * Finds a question w/ the supplied id
+   * Finds a order w/ the supplied id
    *
    * @param {string} id
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(order)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var findById = function(id, onSuccess, onFailure) {
     // Sanitize params
     Params.required('id', id, 'string').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Find question
-    Order.findById(id, function(error, question) {
+    // Find order
+    Order.findById(id, function(error, order) {
       if(!error) {
-        onSuccess(question);
+        onSuccess(order);
       }
       else {
         onFailure(error);
@@ -55,16 +55,16 @@ module.exports = function() {
   };
 
   /**
-   * Saves the supplied question
+   * Saves the supplied order
    *
-   * @param {object} question
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {object} order
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(order)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var save = function(order, onSuccess, onFailure) {
     // Sanitize params
     Params.required('order', order, 'object');
-    // Save question
+    // Save order
     if(order._id) {
       update(order, onSuccess, onFailure);
     }
@@ -74,17 +74,17 @@ module.exports = function() {
   };
 
   /**
-   * Deletes the question w/ the supplied id
+   * Deletes the order w/ the supplied id
    *
    * @param {string} id
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(order)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var deleteById = function(id, onSuccess, onFailure) {
     // Sanitize params
     Params.required('id', id, 'string').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Delete question
+    // Delete order
     Order.findByIdAndRemove(id, function(error, order) {
       if(!error) {
         onSuccess(order);
@@ -96,17 +96,17 @@ module.exports = function() {
   };
 
   /**
-   * Creates the supplied question
+   * Creates the supplied order
    *
-   * @param {object} question
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {object} order
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(order)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var create = function(order, onSuccess, onFailure) {
     // Sanitize params
     Params.required('order', order, 'object').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Create question
+    // Create order
     new Order(order).save(function(error, savedOrder) {
       if(!error) {
         onSuccess(savedOrder);
@@ -118,17 +118,17 @@ module.exports = function() {
   };
 
   /**
-   * Updates the supplied question
+   * Updates the supplied order
    *
-   * @param {object} question
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {object} order
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(order)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var update = function(order, onSuccess, onFailure) {
     // Sanitize params
-    Params.required('order', question, 'object');
+    Params.required('order', order, 'object');
     var onFailure = onFailure || _.noop;
-    // Update question
+    // Update order
     Order.findByIdAndUpdate(order._id, {
       $set: order
     }, function(error) {

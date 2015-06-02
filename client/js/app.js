@@ -21,6 +21,14 @@ angular.module('app', [
       templateUrl: 'views/main.html',
       controller: 'MainController'
     })
+    .when('/register', {
+      templateUrl: 'views/registerTripLeader.html',
+      controller: 'RegisterController'
+    })
+    .when('/login', {
+      templateUrl: 'views/login.html',
+      controller: 'LoginController'
+    })
     .otherwise({
       templateUrl: 'views/main.html',
       controller: 'MainController'

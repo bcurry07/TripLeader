@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('app').controller('LayoutController', 
-    ['$', function ($) {
+angular.module('app').controller('LayoutController', function ($scope, LoginService) {
+
+  $scope.loggedIn = !!LoginService.loggedInUser;
 
 //  var initialize = function() {
 //
@@ -9,4 +10,4 @@ angular.module('app').controller('LayoutController',
 //
 //  initialize();
 
-}]);
+});

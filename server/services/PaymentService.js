@@ -11,20 +11,20 @@ var Payment = require('../models/Payment');
 module.exports = function() {
 
   /**
-   * Returns a list of questions that match the supplied criteria
+   * Returns a list of payments that match the supplied criteria
    *
    * @param {object} criteria
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(questions)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(payments)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var list = function(criteria, onSuccess, onFailure) {
     // Sanitize params
     Params.required('criteria', criteria, 'object').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // List questions
-    Payment.find(criteria, function(error, questions) {
+    // List payments
+    Payment.find(criteria, function(error, payments) {
       if(!error) {
-        onSuccess(questions);
+        onSuccess(payments);
       }
       else {
         onFailure(error);
@@ -33,20 +33,20 @@ module.exports = function() {
   };
 
   /**
-   * Finds a question w/ the supplied id
+   * Finds a payment w/ the supplied id
    *
    * @param {string} id
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(payment)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var findById = function(id, onSuccess, onFailure) {
     // Sanitize params
     Params.required('id', id, 'string').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Find question
-    Payment.findById(id, function(error, question) {
+    // Find payment
+    Payment.findById(id, function(error, payment) {
       if(!error) {
-        onSuccess(question);
+        onSuccess(payment);
       }
       else {
         onFailure(error);
@@ -55,16 +55,16 @@ module.exports = function() {
   };
 
   /**
-   * Saves the supplied question
+   * Saves the supplied payment
    *
-   * @param {object} question
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {object} payment
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(payment)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var save = function(payment, onSuccess, onFailure) {
     // Sanitize params
     Params.required('payment', payment, 'object');
-    // Save question
+    // Save payment
     if(payment._id) {
       update(payment, onSuccess, onFailure);
     }
@@ -74,17 +74,17 @@ module.exports = function() {
   };
 
   /**
-   * Deletes the question w/ the supplied id
+   * Deletes the payment w/ the supplied id
    *
    * @param {string} id
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(payment)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var deleteById = function(id, onSuccess, onFailure) {
     // Sanitize params
     Params.required('id', id, 'string').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Delete question
+    // Delete payment
     Payment.findByIdAndRemove(id, function(error, payment) {
       if(!error) {
         onSuccess(payment);
@@ -96,17 +96,17 @@ module.exports = function() {
   };
 
   /**
-   * Creates the supplied question
+   * Creates the supplied payment
    *
-   * @param {object} question
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {object} payment
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(payment)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var create = function(payment, onSuccess, onFailure) {
     // Sanitize params
     Params.required('payment', payment, 'object').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Create question
+    // Create payment
     new Payment(payment).save(function(error, savedPayment) {
       if(!error) {
         onSuccess(savedPayment);
@@ -118,17 +118,17 @@ module.exports = function() {
   };
 
   /**
-   * Updates the supplied question
+   * Updates the supplied payment
    *
-   * @param {object} question
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(question)"
+   * @param {object} payment
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(payment)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var update = function(payment, onSuccess, onFailure) {
     // Sanitize params
-    Params.required('payment', question, 'object');
+    Params.required('payment', payment, 'object');
     var onFailure = onFailure || _.noop;
-    // Update question
+    // Update payment
     Payment.findByIdAndUpdate(payment._id, {
       $set: payment
     }, function(error) {
