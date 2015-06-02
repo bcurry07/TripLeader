@@ -1,0 +1,40 @@
+{
+  "name": "TripLeader",
+  "version": "1.0.0",
+  "description": "Tracks trip-related information for ski trip leaders",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.cardinalsolutions.com/interview-database/interview-database-api.git"
+  },
+  "author": "Robert Curry",
+  "dependencies": {
+    "body-parser": "^1.12.2",
+    "express": "^4.12.3",
+    "mongoose": "^4.0.1",
+    "require-directory": "^2.1.0",
+    "underscore": "^1.8.3",
+    "underscore.string": "^3.0.3",
+    "winston": "^1.0.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.6.9",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.2.0",
+    "gulp-if": "^1.2.5",
+    "gulp-inject": "^1.2.0",
+    "gulp-jscs": "^1.6.0",
+    "gulp-jshint": "^1.10.0",
+    "gulp-less": "^3.0.3",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-nodemon": "^2.0.2",
+    "gulp-plumber": "^1.0.0",
+    "gulp-print": "^1.1.0",
+    "gulp-util": "^3.0.4",
+    "jshint-stylish": "^1.0.1",
+    "wiredep": "^2.2.2",
+    "yargs": "^3.8.0",
+    "nodemon": "^1.3.7",
+    "gulp-task-listing": "^1.0.0"
+  }
+}

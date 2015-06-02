@@ -1,0 +1,5 @@
+body { cursor: default; }
+
+content .container { margin: 100px auto 0; }
+
+nav.navbar .navbar-brand { color: #fff; margin: 0; font-size: 2em; }
