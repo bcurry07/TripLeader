@@ -4,7 +4,7 @@
 var _ = require('underscore');
 var Params = require('../utilities/Params');
 var TripLeader = require('../models/TripLeader');
-var crypto = require('crypto');
+var Auth = require('../utilities/Auth');
 
 /**
  * Service responsible for handling interactions involving TripLeaders
@@ -26,7 +26,8 @@ module.exports = function() {
     TripLeader.find(criteria, function(error, tripLeaders) {
       if(!error) {
         tripLeaders.forEach(function(leader) {
-
+          delete leader.salt;
+          delete leader.hashed_pw;
         });
         onSuccess(tripLeaders);
       }
@@ -50,6 +51,8 @@ module.exports = function() {
     // Find tripLeader
     TripLeader.findById(id, function(error, tripLeader) {
       if(!error) {
+        delete tripLeader.salt;
+        delete tripLeader.hashed_pw;
         onSuccess(tripLeader);
       }
       else {
@@ -75,8 +78,8 @@ module.exports = function() {
     }
     else {
       var salt, hash;
-      salt = createSalt();
-      hash = hashPwd(salt, tripLeader.password);
+      salt = Auth.createSalt();
+      hash = Auth.hashPwd(salt, tripLeader.password);
 
       var newTripLeader = {
         name: tripLeader.name,
@@ -165,12 +168,3 @@ module.exports = function() {
   };
 
 }();
-
-function createSalt() {
-  return crypto.randomBytes(128).toString('base64');
-}
-
-function hashPwd(salt, pwd) {
-  var hmac = crypto.createHmac('sha1', salt);
-  return hmac.update(pwd).digest('hex');
-}

@@ -2,6 +2,7 @@
 
 // Import dependencies
 var Mongoose = require('mongoose');
+var Auth = require('../utilities/Auth');
 
 /**
  * Domain model representing a Trip Leader
@@ -19,6 +20,12 @@ var TripLeaderSchema = new Mongoose.Schema({
   salt: String,
   hashed_pw: String
 });
+
+TripLeaderSchema.methods = {
+  authenticate: function(passwordToMatch) {
+    return Auth.hashPwd(this.salt, passwordToMatch) === this.hashed_pw;
+  }
+};
 
 // Create model from schema
 var TripLeader = Mongoose.model('TripLeader', TripLeaderSchema);
