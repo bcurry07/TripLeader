@@ -12,6 +12,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
     <!-- endbower -->
 
     <!-- inject:css -->
@@ -35,7 +36,7 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                  <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+                  <li class="active"><a href="#/">Home <span class="sr-only">(current)</span></a></li>
                   <li><a href="#/register">Register as new Trip Leader</a></li>
                   <!--<li ng-hide="loggedIn"><a href="#/login">Sign In</a></li>-->
                   <!--<li class="dropdown">-->
@@ -51,7 +52,7 @@
                       <!--</ul>-->
                   <!--</li>-->
               </ul>
-              <form class="navbar-form navbar-left" role="login">
+              <form ng-hide="identity.isAuthenticated()" class="navbar-form navbar-left" role="login">
                   <div class="form-group">
                       <input type="text" class="form-control" placeholder="Name" ng-model="username">
                       <input type="text" type="password" class="form-control" placeholder="Password" ng-model="password">
@@ -115,6 +116,7 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/toastr/toastr.js"></script>
     <!-- endbower -->
 
     <!-- inject:js -->
@@ -123,8 +125,11 @@
     <script src="/js/controllers/LoginController.js"></script>
     <script src="/js/controllers/MainController.js"></script>
     <script src="/js/controllers/RegisterController.js"></script>
+    <script src="/js/services/AuthService.js"></script>
     <script src="/js/services/DataServices.js"></script>
+    <script src="/js/services/IdentityService.js"></script>
     <script src="/js/services/LoginService.js"></script>
+    <script src="/js/services/Notifier.js"></script>
     <!-- endinject -->
   </body>
 </html>

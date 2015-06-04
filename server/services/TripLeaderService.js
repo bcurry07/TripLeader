@@ -4,6 +4,7 @@
 var _ = require('underscore');
 var Params = require('../utilities/Params');
 var TripLeader = require('../models/TripLeader');
+var crypto = require('crypto');
 
 /**
  * Service responsible for handling interactions involving TripLeaders
@@ -24,6 +25,9 @@ module.exports = function() {
     // List tripLeaders
     TripLeader.find(criteria, function(error, tripLeaders) {
       if(!error) {
+        tripLeaders.forEach(function(leader) {
+
+        });
         onSuccess(tripLeaders);
       }
       else {
@@ -70,10 +74,15 @@ module.exports = function() {
       update(tripLeader, onSuccess, onFailure);
     }
     else {
+      var salt, hash;
+      salt = createSalt();
+      hash = hashPwd(salt, tripLeader.password);
+
       var newTripLeader = {
         name: tripLeader.name,
-        password: tripLeader.password,
-        trips: [tripLeader.trip]
+        trips: [tripLeader.trip],
+        salt: salt,
+        hashed_pw: hash
       };
       create(newTripLeader, onSuccess, onFailure);
     }
@@ -156,3 +165,12 @@ module.exports = function() {
   };
 
 }();
+
+function createSalt() {
+  return crypto.randomBytes(128).toString('base64');
+}
+
+function hashPwd(salt, pwd) {
+  var hmac = crypto.createHmac('sha1', salt);
+  return hmac.update(pwd).digest('hex');
+}

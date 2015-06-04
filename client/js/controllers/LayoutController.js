@@ -1,22 +1,19 @@
 'use strict';
 
-angular.module('app').controller('LayoutController', function ($scope, $http) {
+angular.module('app').controller('LayoutController', function ($scope, $http, IdentityService, Notifier, AuthService) {
+
+  $scope.identity = IdentityService;
 
   $scope.signin = function(username,password) {
-    $http.post('/login', {username:username, password:password}).then(function(response) {
-      if(response.data.success) {
-        console.log('logged in!');
+    AuthService.authenticateUser(username, password).then(function(success) {
+      if(success) {
+        Notifier.notify('You have successfully logged in');
       }
       else {
-        console.log('login failed');
+        Notifier.notify('Login unsuccessful');
       }
     });
   };
 
-//  var initialize = function() {
-//
-//  };
-//
-//  initialize();
 
 });

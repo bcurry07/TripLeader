@@ -13,12 +13,11 @@ var TripLeaderSchema = new Mongoose.Schema({
     type: String,
     index: { unique: true}
   },
-  password: {
-    type: String
-  },
   trips: {
     type: [String]
-  }
+  },
+  salt: String,
+  hashed_pw: String
 });
 
 // Create model from schema
