@@ -10,6 +10,8 @@ var MODELS_PATH = './server/models';
 
 // Import dependencies
 var BodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var Express = require('express');
 var Mongoose = require('mongoose');
 var RequireDirectory = require('require-directory');
@@ -17,6 +19,8 @@ var Config = require('./server/utilities/Config');
 var ErrorResponse = require('./server/utilities/ErrorResponse');
 var Log = require('./server/utilities/Log');
 var path = require('path');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 // Setup Mongoose connection
 (function(Mongoose, config) {
@@ -54,6 +58,12 @@ router.use(BodyParser.json());
 
 // Create Express server and mount the router
 var server = Express();
+server.use(cookieParser());
+server.use(BodyParser());
+server.use(session({secret: 'ski club'}));
+server.use(passport.initialize());
+server.use(passport.session());
+
 server.use('/api', router);
 
 server.use(Express.static(path.join(__dirname, 'client')));
@@ -69,6 +79,51 @@ server.use(Express.static(path.join(__dirname, 'client')));
 // Configure Express' global error handling
 server.use(function(error, request, response, next) {
   ErrorResponse.send(response, 500, 'Shit broke, needs fixed', error.stack);
+});
+
+var TripLeader = Mongoose.model('TripLeader');
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    console.log('passport localstrategy function');
+    TripLeader.findOne({name:username}).exec(function(err, user) {
+      if(user) {
+        return done(null, user);
+      }
+      else {
+        return done(null, false);
+      }
+    });
+  }
+));
+
+passport.serializeUser(function(user, done) {
+  if(user) {
+    done(null, user._id);
+  }
+});
+
+passport.deserializeUser(function(id, done) {
+  TripLeader.findOne({_id:id}).exec(function(err, user) {
+    if(user) {
+      return done(null, user);
+    }
+    else {
+      return done(null, false);
+    }
+  });
+});
+
+
+server.post('/login', function(req, res, next) {
+  var auth = passport.authenticate('local', function(err, user) {
+    if(err) {return next(err);}
+    if(!user) { res.send({success:false});}
+    req.logIn(user, function(err) {
+      if(err) {return next(err);}
+      res.send({success:true, user:user});
+    });
+  });
+  auth(req, res, next);
 });
 
 // Start Express server

@@ -62,7 +62,6 @@ module.exports = function() {
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var save = function(tripLeader, onSuccess, onFailure) {
-    console.log('hitting service');
 
     // Sanitize params
     //Params.required('tripLeader', tripLeader, 'object');
