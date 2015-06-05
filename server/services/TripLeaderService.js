@@ -25,10 +25,7 @@ module.exports = function() {
     // List tripLeaders
     TripLeader.find(criteria, function(error, tripLeaders) {
       if(!error) {
-        tripLeaders.forEach(function(leader) {
-          delete leader.salt;
-          delete leader.hashed_pw;
-        });
+
         onSuccess(tripLeaders);
       }
       else {
@@ -51,8 +48,6 @@ module.exports = function() {
     // Find tripLeader
     TripLeader.findById(id, function(error, tripLeader) {
       if(!error) {
-        delete tripLeader.salt;
-        delete tripLeader.hashed_pw;
         onSuccess(tripLeader);
       }
       else {
@@ -77,17 +72,8 @@ module.exports = function() {
       update(tripLeader, onSuccess, onFailure);
     }
     else {
-      var salt, hash;
-      salt = Auth.createSalt();
-      hash = Auth.hashPwd(salt, tripLeader.password);
 
-      var newTripLeader = {
-        name: tripLeader.name,
-        trips: [tripLeader.trip],
-        salt: salt,
-        hashed_pw: hash
-      };
-      create(newTripLeader, onSuccess, onFailure);
+      create(tripLeader, onSuccess, onFailure);
     }
   };
 

@@ -2,6 +2,7 @@
 
 // Import dependencies
 var Mongoose = require('mongoose');
+var Auth = require('../utilities/Auth');
 
 /**
  * Domain model representing a Trip
@@ -24,6 +25,12 @@ var TripSchema = new Mongoose.Schema({
     liftTicket: Number
   }
 });
+
+TripSchema.methods = {
+  authenticate: function(passwordToMatch) {
+    return Auth.hashPwd(this.salt, passwordToMatch) === this.hashed_pw;
+  }
+};
 
 // Create model from schema
 var Trip = Mongoose.model('Trip', TripSchema);

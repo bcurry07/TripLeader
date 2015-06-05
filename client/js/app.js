@@ -14,7 +14,8 @@ angular.module('app', [
   'ngResource',
   'ngRoute',
   'ngSanitize',
-  'ngTouch'
+  'ngTouch',
+  'ngCookies'
 ]).config(function ($routeProvider) {
   $routeProvider
     .when('/main', {
@@ -22,7 +23,7 @@ angular.module('app', [
       controller: 'MainController'
     })
     .when('/register', {
-      templateUrl: 'views/registerTripLeader.html',
+      templateUrl: 'views/registerTrip.html',
       controller: 'RegisterController'
     })
     .when('/login', {

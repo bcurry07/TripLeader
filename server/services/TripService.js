@@ -4,6 +4,7 @@
 var _ = require('underscore');
 var Params = require('../utilities/Params');
 var Trip = require('../models/Trip');
+var Auth = require('../utilities/Auth');
 
 /**
  * Service responsible for handling interactions involving Trips
@@ -24,6 +25,10 @@ module.exports = function() {
     // List trips
     Trip.find(criteria, function(error, trips) {
       if(!error) {
+        trips.forEach(function(trip) {
+          delete trip.salt;
+          delete trip.hashed_pw;
+        });
         onSuccess(trips);
       }
       else {
@@ -46,6 +51,8 @@ module.exports = function() {
     // Find trip
    Trip.findById(id, function(error, trip) {
       if(!error) {
+        delete trip.salt;
+        delete trip.hashed_pw;
         onSuccess(trip);
       }
       else {
@@ -69,6 +76,13 @@ module.exports = function() {
       update(trip, onSuccess, onFailure);
     }
     else {
+      var salt, hash;
+      salt = Auth.createSalt();
+      hash = Auth.hashPwd(salt, trip.password);
+
+      trip.salt = salt;
+      trip.hash = hash;
+
       create(trip, onSuccess, onFailure);
     }
   };

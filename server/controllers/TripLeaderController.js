@@ -43,7 +43,6 @@ module.exports = function(router) {
   router.post('/tripLeaders', function(request, response) {
     // Pull request data
     var tripLeader = request.body;
-    console.log(tripLeader);
     // Save tripLeader
     TripLeaderService.save(tripLeader, function(savedTripLeader) {
       response.send(savedTripLeader);

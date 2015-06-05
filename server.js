@@ -81,12 +81,11 @@ server.use(function(error, request, response, next) {
   ErrorResponse.send(response, 500, 'Shit broke, needs fixed', error.stack);
 });
 
-var TripLeader = Mongoose.model('TripLeader');
+var Trip = Mongoose.model('Trip');
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    console.log('passport localstrategy function');
-    TripLeader.findOne({name:username}).exec(function(err, user) {
-      if(user && user.authenticate(password)) {
+  function(tripname, password, done) {
+    Trip.findOne({name:tripname}).exec(function(err, trip) {
+      if(trip && trip.authenticate(password)) {
         return done(null, user);
       }
       else {
@@ -95,6 +94,10 @@ passport.use(new LocalStrategy(
     });
   }
 ));
+
+server.get('/currentUser',function(req, res){
+  res.send(user);
+});
 
 passport.serializeUser(function(user, done) {
   if(user) {
@@ -124,6 +127,11 @@ server.post('/login', function(req, res, next) {
     });
   });
   auth(req, res, next);
+});
+
+server.post('/logout', function(req, res, next) {
+  req.logout();
+  res.end();
 });
 
 // Start Express server

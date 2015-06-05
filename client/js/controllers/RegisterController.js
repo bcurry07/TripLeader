@@ -1,24 +1,23 @@
-angular.module('app').controller('RegisterController', function ($scope, $location, TripLeaderData) {
+angular.module('app').controller('RegisterController', function ($scope, $location, TripData) {
 
-    $scope.tripLeader = {};
+    $scope.trip = {};
 
   $scope.returnToHome = function() {
     $location.url('/');
   };
 
-    $scope.createTripLeader = function(tripLeader) {
+    $scope.createTrip = function(trip) {
 
-      var newTripLeader = new TripLeaderData(tripLeader);
-      //newTripLeader = tripLeader;
+      var newTrip = new TripData(trip);
 
-      TripLeaderData.save(newTripLeader, function(response) {
+      TripData.save(newTrip, function(response) {
 
-        alert('Trip Leader successfully added');
+        alert('Trip successfully added');
         $location.url('/');
 
       },function(error) {
         console.log(error);
-        alert('Trip Leader could not be added');
+        alert('Trip could not be added');
       });
     };
 
