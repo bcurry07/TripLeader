@@ -3,7 +3,7 @@ angular.module('app').factory('AuthService', function($http, IdentityService, $q
     authenticateUser: function(username, password) {
       var deferred = $q.defer();
 
-      $http.post('/login', {username:username, password:password}).then(function(response) {
+      $http.post('/api/login', {username:username, password:password}).then(function(response) {
         if(response.data.success) {
 
           IdentityService.currentTrip = response.data.user;
@@ -22,7 +22,7 @@ angular.module('app').factory('AuthService', function($http, IdentityService, $q
     },
     logoutUser: function() {
       var deferred = $q.defer();
-      $http.post('/logout', {logout:true}).then(function() {
+      $http.post('/api/logout', {logout:true}).then(function() {
         IdentityService.currentTrip = undefined;
         //localStorage.setItem('user', null);
         localStorage.removeItem('user');

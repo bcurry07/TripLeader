@@ -20,7 +20,8 @@ var ErrorResponse = require('./server/utilities/ErrorResponse');
 var Log = require('./server/utilities/Log');
 var path = require('path');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+// var LocalStrategy = require('passport-local').Strategy;
+
 
 // Setup Mongoose connection
 (function(Mongoose, config) {
@@ -42,6 +43,8 @@ var LocalStrategy = require('passport-local').Strategy;
 (function(path) {
   RequireDirectory(module, path);
 }(MODELS_PATH));
+
+require('./server/utilities/Passport')();
 
 // Create Express router (for Controllers to mount their request handlers to)
 var router = Express.Router();
@@ -81,56 +84,6 @@ server.use(function(error, request, response, next) {
   ErrorResponse.send(response, 500, 'Shit broke, needs fixed', error.stack);
 });
 
-var Trip = Mongoose.model('Trip');
-passport.use(new LocalStrategy(
-  function(tripname, password, done) {
-    Trip.findOne({name:tripname}).exec(function(err, trip) {
-      if(trip && trip.authenticate(password)) {
-        console.log('works');
-        return done(null, trip);
-      }
-      else {
-        console.log('doesnt work');
-        return done(null, false);
-      }
-    });
-  }
-));
-
-passport.serializeUser(function(user, done) {
-  if(user) {
-    done(null, user._id);
-  }
-});
-
-passport.deserializeUser(function(id, done) {
-  Trip.findOne({_id:id}).exec(function(err, user) {
-    if(user) {
-      return done(null, user);
-    }
-    else {
-      return done(null, false);
-    }
-  });
-});
-
-
-server.post('/login', function(req, res, next) {
-  var auth = passport.authenticate('local', function(err, user) {
-    if(err) {return next(err);}
-    if(!user) { res.send({success:false});}
-    req.logIn(user, function(err) {
-      if(err) {return next(err);}
-      res.send({success:true, user:user});
-    });
-  });
-  auth(req, res, next);
-});
-
-server.post('/logout', function(req, res, next) {
-  req.logout();
-  res.end();
-});
 
 // Start Express server
 (function(server, config) {
