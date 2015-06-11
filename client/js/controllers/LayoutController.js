@@ -2,28 +2,33 @@
 
 angular.module('app').controller('LayoutController', function ($scope, $http, $location, IdentityService, Notifier, AuthService) {
 
-  $scope.identity = IdentityService;
+  var layoutController = this;
+
+  layoutController.identity = IdentityService;
+  layoutController.signin = signin;
+  layoutController.signout = signout;
 
 
-  $scope.signin = function(username,password) {
+  function signin(username,password) {
     AuthService.authenticateUser(username, password).then(function(success) {
       if(success) {
         Notifier.notify('You have successfully logged in');
+        $location.url('/tripHome'); /* + layoutController.identity.currentTrip._id);*/
       }
       else {
         Notifier.notify('Login unsuccessful');
       }
     });
-  };
+  }
 
-  $scope.signout = function() {
+  function signout() {
     AuthService.logoutUser().then(function() {
-      $scope.username = "";
-      $scope.password = "";
+      layoutController.username = "";
+      layoutController.password = "";
       Notifier.notify("You have successfully logged out!");
       $location.url('/');
     });
-  };
+  }
 
 
 });

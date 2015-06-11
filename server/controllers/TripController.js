@@ -4,11 +4,18 @@
 var _s = require('underscore.string');
 var ErrorResponse = require('../utilities/ErrorResponse');
 var TripsService = require('../services/TripService');
+var auth = require('../utilities/Auth');
 
 /**
  * Controller responsible for handling RESTful interactions involving Trips
  */
 module.exports = function(router) {
+
+  var login = {
+    username: process.env.LOGINUSER,
+    password: process.env.LOGINPW
+  };
+
 
   /**
    * Returns a list of trips
@@ -40,7 +47,7 @@ module.exports = function(router) {
   /**
    * Saves a trip
    */
-  router.post('/trips', function(request, response) {
+  router.post('/trips', auth.basicAuth(login.username, login.password), function(request, response) {
     // Pull request data
     var trip = request.body;
     // Save trip
@@ -55,7 +62,7 @@ module.exports = function(router) {
   /**
    * Deletes a single trip with the specified id
    */
-  router.delete('/trips/:id', function(request, response) {
+  router.delete('/trips/:id', auth.basicAuth(login.username, login.password), function(request, response) {
     // Pull request data
     var id = request.params.id;
     // Find trip by id

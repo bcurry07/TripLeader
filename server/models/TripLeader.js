@@ -16,9 +16,7 @@ var TripLeaderSchema = new Mongoose.Schema({
   },
   trips: {
     type: [String]
-  },
-  salt: String,
-  hashed_pw: String
+  }
 });
 
 TripLeaderSchema.methods = {

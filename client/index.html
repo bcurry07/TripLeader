@@ -14,12 +14,13 @@
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
     <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
     <!-- endbower -->
+    <link href="bower_components/ng-grid_2.0.14.css" rel="stylesheet" />
 
     <!-- inject:css -->
     <link rel="stylesheet" href="/styles/main.css">
     <!-- endinject -->
   </head>
-  <body ng-app="app" ng-controller="LayoutController" ng-cloak>
+  <body ng-app="app" ng-controller="LayoutController as layoutController" ng-cloak>
   <nav class="navbar navbar-default">
       <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -36,8 +37,7 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                  <li class="active"><a href="#/">Home <span class="sr-only">(current)</span></a></li>
-                  <li><a href="#/register">Create New Trip</a></li>
+                  <li class="active"><a ng-href="/">Home <span class="sr-only">(current)</span></a></li>
                   <!--<li ng-hide="loggedIn"><a href="#/login">Sign In</a></li>-->
                   <!--<li class="dropdown">-->
                       <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span ng-show="loggedIn">Welcome -Trip Leader- <span class="caret"></span></span></a>-->
@@ -52,20 +52,22 @@
                       <!--</ul>-->
                   <!--</li>-->
               </ul>
-              <form ng-hide="identity.isAuthenticated()" class="navbar-form navbar-left" role="login">
+              <form ng-hide="layoutController.identity.isAuthenticated()" class="navbar-form navbar-left" role="login">
                   <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Name" ng-model="username">
-                      <input type="password" class="form-control" placeholder="Password" ng-model="password">
+                      <input type="text" class="form-control" placeholder="Trip Name" ng-model="layoutController.username">
+                      <input type="password" class="form-control" placeholder="Password" ng-model="layoutController.password">
                   </div>
-                  <button type="submit" class="btn btn-default" ng-click="signin(username, password)">Submit</button>
+                  <button type="submit" class="btn btn-default" ng-click="layoutController.signin(layoutController.username, layoutController.password)">Submit</button>
               </form>
-              <ul class="nav navbar-nav navbar-left" ng-show="identity.isAuthenticated()">
+              <ul class="nav navbar-nav navbar-left" ng-show="layoutController.identity.isAuthenticated()">
                   <li class="dropdown">
-                      <a class="dropdown-toggle" href="" data-toggle="dropdown">Welcome {{identity.currentUser.name}}
+                      <a class="dropdown-toggle" href="" data-toggle="dropdown">Welcome {{layoutController.identity.currentTrip.name}}
                         <b class="caret"></b>
                       </a>
                       <ul class="dropdown-menu">
-                          <li><a href="" ng-click="signout()">Sign Out</a></li>
+                          <li><a href="/editTrip">Edit Trip</a></li>
+                          <li class="divider"></li>
+                          <li><a href="" ng-click="layoutController.signout()">Sign Out</a></li>
                       </ul>
                   </li>
               </ul>
@@ -128,17 +130,18 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/toastr/toastr.js"></script>
     <!-- endbower -->
+    <script src="bower_components/ng-grid_2.0.14.js"></script>
 
     <!-- inject:js -->
     <script src="/js/app.js"></script>
+    <script src="/js/controllers/EditTripController.js"></script>
     <script src="/js/controllers/LayoutController.js"></script>
-    <script src="/js/controllers/LoginController.js"></script>
     <script src="/js/controllers/MainController.js"></script>
     <script src="/js/controllers/RegisterController.js"></script>
+    <script src="/js/controllers/TripHomeController.js"></script>
     <script src="/js/services/AuthService.js"></script>
     <script src="/js/services/DataServices.js"></script>
     <script src="/js/services/IdentityService.js"></script>
-    <script src="/js/services/LoginService.js"></script>
     <script src="/js/services/Notifier.js"></script>
     <!-- endinject -->
   </body>

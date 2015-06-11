@@ -23,11 +23,14 @@ var TripSchema = new Mongoose.Schema({
   prices: {
     flight: Number,
     liftTicket: Number
-  }
+  },
+  salt: String,
+  hashed_pw: String
 });
 
 TripSchema.methods = {
   authenticate: function(passwordToMatch) {
+    console.log('authenticating trip...');
     return Auth.hashPwd(this.salt, passwordToMatch) === this.hashed_pw;
   }
 };

@@ -1,12 +1,16 @@
 angular.module('app').controller('RegisterController', function ($scope, $location, TripData) {
 
-    $scope.trip = {};
+  var registerController = this;
 
-  $scope.returnToHome = function() {
+  registerController.trip = {};
+  registerController.returnToHome = returnToHome;
+  registerController.createTrip = createTrip;
+
+ function returnToHome() {
     $location.url('/');
-  };
+  }
 
-    $scope.createTrip = function(trip) {
+   function createTrip(trip) {
 
       var newTrip = new TripData(trip);
 
@@ -19,6 +23,6 @@ angular.module('app').controller('RegisterController', function ($scope, $locati
         console.log(error);
         alert('Trip could not be added');
       });
-    };
+    }
 
 });

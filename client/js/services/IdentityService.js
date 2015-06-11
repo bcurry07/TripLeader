@@ -1,15 +1,15 @@
 angular.module('app').factory('IdentityService', function() {
 
-  var currentUser;
+  var currentTrip;
 
-  if(localStorage.getItem('user')) {
-    currentUser = JSON.parse(localStorage.getItem('user'));
+  if(localStorage.getItem('trip')) {
+    currentTrip = JSON.parse(localStorage.getItem('trip'));
   }
 
   return {
-    currentUser: currentUser,
+    currentUser: currentTrip,
     isAuthenticated: function() {
-      return !!this.currentUser;
+      return !!this.currentTrip;
     }
   }
 });

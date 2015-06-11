@@ -15,23 +15,37 @@ angular.module('app', [
   'ngRoute',
   'ngSanitize',
   'ngTouch',
-  'ngCookies'
-]).config(function ($routeProvider) {
+  'ngCookies',
+  'ngGrid'
+]).config(function ($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
   $routeProvider
     .when('/main', {
       templateUrl: 'views/main.html',
-      controller: 'MainController'
+      controller: 'MainController',
+      controllerAs: 'mainController'
     })
     .when('/register', {
-      templateUrl: 'views/registerTrip.html',
-      controller: 'RegisterController'
+      templateUrl: 'views/TripForm.html',
+      controller: 'RegisterController',
+      controllerAs: 'registerController'
     })
-    .when('/login', {
-      templateUrl: 'views/login.html',
-      controller: 'LoginController'
+    .when('/editTrip', {
+      templateUrl: 'views/TripForm.html',
+      controller: 'EditTripController',
+      controllerAs: 'editTripController'
+    })
+    .when('/tripHome', {
+      templateUrl: 'views/TripHome.html',
+      controller: 'TripHomeController',
+      controllerAs: 'tripHomeController'
     })
     .otherwise({
       templateUrl: 'views/main.html',
       controller: 'MainController'
     });
+
 }).constant('$', window.jQuery);

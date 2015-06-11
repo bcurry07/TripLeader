@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('app').controller('MainController', 
-    [function () {
+angular.module('app').controller('MainController', function () {
+
+  var mainController = this;
 
 
-}]);
+});

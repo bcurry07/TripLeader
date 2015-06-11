@@ -6,9 +6,9 @@ angular.module('app').factory('AuthService', function($http, IdentityService, $q
       $http.post('/login', {username:username, password:password}).then(function(response) {
         if(response.data.success) {
 
-          IdentityService.currentUser = response.data.user;
+          IdentityService.currentTrip = response.data.user;
           //localStorage.setItem('user', response.data.user);
-          localStorage.setItem('user', JSON.stringify(response.data.user));
+          localStorage.setItem('trip', JSON.stringify(response.data.user));
 //          var test = localStorage.getItem('user');
 //          console.log(test);
           deferred.resolve(true);
@@ -23,7 +23,7 @@ angular.module('app').factory('AuthService', function($http, IdentityService, $q
     logoutUser: function() {
       var deferred = $q.defer();
       $http.post('/logout', {logout:true}).then(function() {
-        IdentityService.currentUser = undefined;
+        IdentityService.currentTrip = undefined;
         //localStorage.setItem('user', null);
         localStorage.removeItem('user');
         deferred.resolve();

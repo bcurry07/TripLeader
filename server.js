@@ -86,18 +86,16 @@ passport.use(new LocalStrategy(
   function(tripname, password, done) {
     Trip.findOne({name:tripname}).exec(function(err, trip) {
       if(trip && trip.authenticate(password)) {
-        return done(null, user);
+        console.log('works');
+        return done(null, trip);
       }
       else {
+        console.log('doesnt work');
         return done(null, false);
       }
     });
   }
 ));
-
-server.get('/currentUser',function(req, res){
-  res.send(user);
-});
 
 passport.serializeUser(function(user, done) {
   if(user) {
@@ -106,7 +104,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  TripLeader.findOne({_id:id}).exec(function(err, user) {
+  Trip.findOne({_id:id}).exec(function(err, user) {
     if(user) {
       return done(null, user);
     }

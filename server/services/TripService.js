@@ -81,7 +81,7 @@ module.exports = function() {
       hash = Auth.hashPwd(salt, trip.password);
 
       trip.salt = salt;
-      trip.hash = hash;
+      trip.hashed_pw = hash;
 
       create(trip, onSuccess, onFailure);
     }
