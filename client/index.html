@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
     <!-- endbower -->
     <link href="bower_components/ng-grid_2.0.14.css" rel="stylesheet" />
+    <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
 
     <!-- inject:css -->
     <link rel="stylesheet" href="/styles/main.css">
@@ -54,14 +55,15 @@
               </ul>
               <form ng-hide="layoutController.identity.isAuthenticated()" class="navbar-form navbar-left" role="login">
                   <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Trip Name" ng-model="layoutController.tripDestination">
+                      <input type="text" ng-model="layoutController.tripDestination" placeholder="Trip Name" typeahead="tripName for tripName in layoutController.tripNames | filter:$viewValue | limitTo:8" class="form-control">
+                      <!--<input type="text" class="form-control" placeholder="Trip Name" ng-model="layoutController.tripDestination">-->
                       <input type="password" class="form-control" placeholder="Password" ng-model="layoutController.tripPassword">
                   </div>
                   <button type="submit" class="btn btn-default" ng-click="layoutController.signin(layoutController.tripDestination, layoutController.tripPassword)">Submit</button>
               </form>
               <ul class="nav navbar-nav navbar-left" ng-show="layoutController.identity.isAuthenticated()">
                   <li class="dropdown">
-                      <a class="dropdown-toggle" href="" data-toggle="dropdown">Welcome {{layoutController.identity.currentTrip.destination}}
+                      <a class="dropdown-toggle" href="" data-toggle="dropdown">{{layoutController.identity.currentTrip.loginId}}
                         <b class="caret"></b>
                       </a>
                       <ul class="dropdown-menu">
@@ -130,14 +132,16 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/toastr/toastr.js"></script>
     <!-- endbower -->
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="bower_components/ng-grid_2.0.14.js"></script>
 
     <!-- inject:js -->
     <script src="/js/app.js"></script>
-    <script src="/js/controllers/EditTripController.js"></script>
     <script src="/js/controllers/LayoutController.js"></script>
     <script src="/js/controllers/MainController.js"></script>
     <script src="/js/controllers/RegisterController.js"></script>
+    <script src="/js/controllers/TravelerController.js"></script>
     <script src="/js/controllers/TripHomeController.js"></script>
     <script src="/js/services/AuthService.js"></script>
     <script src="/js/services/DataServices.js"></script>

@@ -2,6 +2,7 @@
 
 // Import dependencies
 var Mongoose = require('mongoose');
+var Schema = Mongoose.Schema;
 
 /**
  * Domain model representing a Traveler

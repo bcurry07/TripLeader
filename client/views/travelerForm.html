@@ -1,11 +1,11 @@
-<ng-form name="registerTrip" class="col-md-6">
+<ng-form name="travelerForm" class="col-md-6">
     <div class="fieldset">
         <div class="form-group">
-            <label for="tripDestination">Trip Destination</label>
-            <input name="tripDestination" id="tripDestination" type="text" required="required" ng-model="registerController.trip.destination" ng-auto-focus="ng-auto-focus" placeholder="Trip Destination" class="form-control"/>
+            <label for="travelerName">Traveler Name</label>
+            <input name="travelerName" id="travelerName" type="text" required="required" ng-model="travelerController.traveler.name" ng-auto-focus="ng-auto-focus" placeholder="Traveler Name" class="form-control"/>
         </div>
-        <button class="btn btn-success" ng-click="registerController.createTrip(registerController.trip)">Save<!--ng-disabled="newPlacementForm.$invalid",--></button>
-        <button type="submit" class="btn btn-default" ng-click="registerController.returnToHome()">Cancel</button>
+        <button class="btn btn-success" ng-click="travelerController.createTrip(travelerController.traveler)">Save<!--ng-disabled="newPlacementForm.$invalid",--></button>
+        <button type="submit" class="btn btn-default" ng-click="travelerController.returnToHome()">Cancel</button>
 
     </div>
 </ng-form>

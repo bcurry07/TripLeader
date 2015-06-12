@@ -13,6 +13,9 @@ var TripSchema = new Mongoose.Schema({
   destination: {
     type: String
   },
+  loginId : {
+    type: String
+  },
   tripLeaderName: {
     type: String
   },

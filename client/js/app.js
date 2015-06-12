@@ -16,7 +16,8 @@ angular.module('app', [
   'ngSanitize',
   'ngTouch',
   'ngCookies',
-  'ngGrid'
+  'ngGrid',
+  'ui.bootstrap'
 ]).config(function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode({
     enabled: true,
@@ -37,6 +38,11 @@ angular.module('app', [
       templateUrl: 'views/TripForm.html',
       controller: 'RegisterController',
       controllerAs: 'registerController'
+    })
+    .when('/addTraveler', {
+      templateUrl: 'views/TravelerForm.html',
+      controller: 'TravelerController',
+      controllerAs: 'travelerController'
     })
     .when('/tripHome', {
       templateUrl: 'views/TripHome.html',

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('LayoutController', function ($scope, $http, $location, IdentityService, Notifier, AuthService) {
+angular.module('app').controller('LayoutController', function ($scope, $http, $location, IdentityService, Notifier, AuthService, TripData) {
 
   var layoutController = this;
 
@@ -10,6 +10,18 @@ angular.module('app').controller('LayoutController', function ($scope, $http, $l
   layoutController.tripDestination = "";
   layoutController.tripPassword = "";
 
+  activate();
+
+  function activate() {
+    var tripLoginNames = [];
+    TripData.query().$promise.then(function(trips) {
+      trips.forEach(function(trip) {
+        tripLoginNames.push(trip.loginId);
+      });
+      layoutController.tripNames = tripLoginNames;
+      console.log(layoutController.tripNames);
+    });
+  }
 
   function signin(tripDestination,tripPassword) {
     AuthService.authenticateUser(tripDestination, tripPassword).then(function(success) {

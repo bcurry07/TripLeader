@@ -9,7 +9,7 @@ module.exports = function() {
   passport.use(new LocalStrategy(
     function(tripDestination, tripPassword, done) {
       console.log('hi');
-      Trip.findOne({destination:tripDestination}).exec(function(err, trip) {
+      Trip.findOne({loginId:tripDestination}).exec(function(err, trip) {
         if(trip && trip.authenticate(tripPassword)) {
           console.log('works');
           return done(null, trip);

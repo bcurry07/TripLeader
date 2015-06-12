@@ -82,6 +82,7 @@ module.exports = function() {
 
       trip.salt = salt;
       trip.hashed_pw = hash;
+      trip.loginId = trip.destination.concat(" - " + trip.startDate);
 
       create(trip, onSuccess, onFailure);
     }

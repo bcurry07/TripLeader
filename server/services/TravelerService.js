@@ -19,10 +19,12 @@ module.exports = function() {
    */
   var list = function(criteria, onSuccess, onFailure) {
     // Sanitize params
-    Params.required('criteria', criteria, 'object').required('onSuccess', onSuccess, 'function');
+    //Params.required('criteria', criteria, 'object').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
     // List travelers
-    Traveler.find(criteria, function(error, travelers) {
+    Traveler.find(criteria)
+      .populate('_trip')
+      .exec(function(error, travelers) {
       if(!error) {
         onSuccess(travelers);
       }
