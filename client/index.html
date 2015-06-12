@@ -54,18 +54,18 @@
               </ul>
               <form ng-hide="layoutController.identity.isAuthenticated()" class="navbar-form navbar-left" role="login">
                   <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Trip Name" ng-model="layoutController.username">
-                      <input type="password" class="form-control" placeholder="Password" ng-model="layoutController.password">
+                      <input type="text" class="form-control" placeholder="Trip Name" ng-model="layoutController.tripDestination">
+                      <input type="password" class="form-control" placeholder="Password" ng-model="layoutController.tripPassword">
                   </div>
-                  <button type="submit" class="btn btn-default" ng-click="layoutController.signin(layoutController.username, layoutController.password)">Submit</button>
+                  <button type="submit" class="btn btn-default" ng-click="layoutController.signin(layoutController.tripDestination, layoutController.tripPassword)">Submit</button>
               </form>
               <ul class="nav navbar-nav navbar-left" ng-show="layoutController.identity.isAuthenticated()">
                   <li class="dropdown">
-                      <a class="dropdown-toggle" href="" data-toggle="dropdown">Welcome {{layoutController.identity.currentTrip.name}}
+                      <a class="dropdown-toggle" href="" data-toggle="dropdown">Welcome {{layoutController.identity.currentTrip.destination}}
                         <b class="caret"></b>
                       </a>
                       <ul class="dropdown-menu">
-                          <li><a href="/editTrip">Edit Trip</a></li>
+                          <li><a href="/editTrip">Trip Settings</a></li>
                           <li class="divider"></li>
                           <li><a href="" ng-click="layoutController.signout()">Sign Out</a></li>
                       </ul>

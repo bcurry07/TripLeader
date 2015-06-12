@@ -35,8 +35,8 @@ angular.module('app', [
     })
     .when('/editTrip', {
       templateUrl: 'views/TripForm.html',
-      controller: 'EditTripController',
-      controllerAs: 'editTripController'
+      controller: 'RegisterController',
+      controllerAs: 'registerController'
     })
     .when('/tripHome', {
       templateUrl: 'views/TripHome.html',

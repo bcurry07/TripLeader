@@ -3,28 +3,28 @@
 // Import dependencies
 var _ = require('underscore');
 var Params = require('../utilities/Params');
-var Order = require('../models/Order');
+var Traveler = require('../models/Traveler');
 
 /**
- * Service responsible for handling interactions involving Orders
+ * Service responsible for handling interactions involving Travelers
  */
 module.exports = function() {
 
   /**
-   * Returns a list of orders that match the supplied criteria
+   * Returns a list of travelers that match the supplied criteria
    *
    * @param {object} criteria
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(orders)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(travelers)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var list = function(criteria, onSuccess, onFailure) {
     // Sanitize params
     Params.required('criteria', criteria, 'object').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // List orders
-    Order.find(criteria, function(error, orders) {
+    // List travelers
+    Traveler.find(criteria, function(error, travelers) {
       if(!error) {
-        onSuccess(orders);
+        onSuccess(travelers);
       }
       else {
         onFailure(error);
@@ -33,20 +33,20 @@ module.exports = function() {
   };
 
   /**
-   * Finds a order w/ the supplied id
+   * Finds a traveler w/ the supplied id
    *
    * @param {string} id
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(order)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(traveler)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var findById = function(id, onSuccess, onFailure) {
     // Sanitize params
     Params.required('id', id, 'string').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Find order
-    Order.findById(id, function(error, order) {
+    // Find traveler
+    Traveler.findById(id, function(error, traveler) {
       if(!error) {
-        onSuccess(order);
+        onSuccess(traveler);
       }
       else {
         onFailure(error);
@@ -55,39 +55,39 @@ module.exports = function() {
   };
 
   /**
-   * Saves the supplied order
+   * Saves the supplied traveler
    *
-   * @param {object} order
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(order)"
+   * @param {object} traveler
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(traveler)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
-  var save = function(order, onSuccess, onFailure) {
+  var save = function(traveler, onSuccess, onFailure) {
     // Sanitize params
-    Params.required('order', order, 'object');
-    // Save order
-    if(order._id) {
-      update(order, onSuccess, onFailure);
+    Params.required('traveler', traveler, 'object');
+    // Save traveler
+    if(traveler._id) {
+      update(traveler, onSuccess, onFailure);
     }
     else {
-      create(order, onSuccess, onFailure);
+      create(traveler, onSuccess, onFailure);
     }
   };
 
   /**
-   * Deletes the order w/ the supplied id
+   * Deletes the traveler w/ the supplied id
    *
    * @param {string} id
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(order)"
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(traveler)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
   var deleteById = function(id, onSuccess, onFailure) {
     // Sanitize params
     Params.required('id', id, 'string').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Delete order
-    Order.findByIdAndRemove(id, function(error, order) {
+    // Delete traveler
+    Traveler.findByIdAndRemove(id, function(error, traveler) {
       if(!error) {
-        onSuccess(order);
+        onSuccess(traveler);
       }
       else {
         onFailure(error);
@@ -96,20 +96,20 @@ module.exports = function() {
   };
 
   /**
-   * Creates the supplied order
+   * Creates the supplied traveler
    *
-   * @param {object} order
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(order)"
+   * @param {object} traveler
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(traveler)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
-  var create = function(order, onSuccess, onFailure) {
+  var create = function(traveler, onSuccess, onFailure) {
     // Sanitize params
-    Params.required('order', order, 'object').required('onSuccess', onSuccess, 'function');
+    Params.required('traveler', traveler, 'object').required('onSuccess', onSuccess, 'function');
     var onFailure = onFailure || _.noop;
-    // Create order
-    new Order(order).save(function(error, savedOrder) {
+    // Create traveler
+    new Traveler(traveler).save(function(error, savedTraveler) {
       if(!error) {
-        onSuccess(savedOrder);
+        onSuccess(savedTraveler);
       }
       else {
         onFailure(error);
@@ -118,22 +118,22 @@ module.exports = function() {
   };
 
   /**
-   * Updates the supplied order
+   * Updates the supplied traveler
    *
-   * @param {object} order
-   * @param {function} onSuccess - Happy path callback whose signature matches "function(order)"
+   * @param {object} traveler
+   * @param {function} onSuccess - Happy path callback whose signature matches "function(traveler)"
    * @param {function} [onFailure] - Happy path callback whose signature matches "function(error)"
    */
-  var update = function(order, onSuccess, onFailure) {
+  var update = function(traveler, onSuccess, onFailure) {
     // Sanitize params
-    Params.required('order', order, 'object');
+    Params.required('traveler', traveler, 'object');
     var onFailure = onFailure || _.noop;
-    // Update order
-    Order.findByIdAndUpdate(order._id, {
-      $set: order
+    // Update traveler
+    Traveler.findByIdAndUpdate(traveler._id, {
+      $set: traveler
     }, function(error) {
       if(!error) {
-        findById(order._id, onSuccess, onFailure);
+        findById(traveler._id, onSuccess, onFailure);
       }
       else {
         onFailure(error);

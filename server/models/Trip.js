@@ -10,18 +10,20 @@ var Auth = require('../utilities/Auth');
 
 // Create Mongoose schema
 var TripSchema = new Mongoose.Schema({
-  name: {
-    type: String,
-    index: { unique: true}
+  destination: {
+    type: String
+  },
+  tripLeaderName: {
+    type: String
   },
   startDate: {
-    type: Date
+    type: String
   },
   endDate: {
-    type: Date
+    type: String
   },
   prices: {
-    flight: Number,
+    lodging: Number,
     liftTicket: Number
   },
   salt: String,

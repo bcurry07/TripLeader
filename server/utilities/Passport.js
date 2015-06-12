@@ -7,9 +7,10 @@ var Trip = Mongoose.model('Trip');
 module.exports = function() {
 
   passport.use(new LocalStrategy(
-    function(tripname, password, done) {
-      Trip.findOne({name:tripname}).exec(function(err, trip) {
-        if(trip && trip.authenticate(password)) {
+    function(tripDestination, tripPassword, done) {
+      console.log('hi');
+      Trip.findOne({destination:tripDestination}).exec(function(err, trip) {
+        if(trip && trip.authenticate(tripPassword)) {
           console.log('works');
           return done(null, trip);
         }

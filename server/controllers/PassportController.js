@@ -3,13 +3,12 @@
 // Import dependencies
 var passport = require('passport');
 
-/**
- * Controller responsible for handling RESTful interactions involving Orders
- */
+
 module.exports = function(router) {
 
   router.post('/login', function(req, res, next) {
     var auth = passport.authenticate('local', function(err, user) {
+      console.log(user);
       if(err) {return next(err);}
       if(!user) { res.send({success:false});}
       req.logIn(user, function(err) {
