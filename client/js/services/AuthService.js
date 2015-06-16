@@ -26,7 +26,6 @@ angular.module('app').factory('AuthService', function($http, IdentityService, $q
         IdentityService.currentTrip = null;
         //localStorage.setItem('user', null);
         localStorage.removeItem('trip');
-        console.log(localStorage.getItem('trip'));
         deferred.resolve();
       });
       return deferred.promise;

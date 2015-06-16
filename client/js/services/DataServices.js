@@ -19,8 +19,8 @@ angular.module('app').factory('TripData', function($resource) {
   });
 });
 
-angular.module('app').factory('OrderData', function($resource) {
-  return $resource('/api/orders/:_id', {_id: "@id"}, {
+angular.module('app').factory('TravelerData', function($resource) {
+  return $resource('/api/travelers/:_id', {_id: "@id"}, {
     update: {method:'PUT', isArray:false}
   });
 });

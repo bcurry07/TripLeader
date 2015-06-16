@@ -1,36 +1,65 @@
-<ng-form name="registerTrip" class="col-md-6">
-    <div class="fieldset">
-        <div class="form-group">
-            <label for="tripDestination">Trip Destination</label>
-            <input name="tripDestination" id="tripDestination" type="text" required="required" ng-model="registerController.trip.destination" ng-auto-focus="ng-auto-focus" placeholder="Trip Destination" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label for="tripLeaderName">Trip Leader Name</label>
-            <input name="tripLeaderName" id="tripLeaderName" type="text" required="required" ng-model="registerController.trip.tripLeaderName" placeholder="Trip Leader Name" class="form-control"/>
-        </div>
-        <div class="form-group" ng-hide="registerController.editForm">
-            <label for="password">Trip Password</label>
-            <input name="password" id="password" type="password" required="required" ng-model="registerController.trip.password" placeholder="Trip Password" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label for="tripStartDate">Trip Start Date</label>
-            <input name="tripStartDate" id="tripStartDate" type="text" required="required" ng-model="registerController.trip.startDate" placeholder="Trip Start Date" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label for="tripEndDate">Trip End Date</label>
-            <input name="tripEndDate" id="tripEndDate" type="text" required="required" ng-model="registerController.trip.endDate" placeholder="Trip End Date" class="form-control"/>
-        </div>
-        <legend>Prices:</legend>
-        <div class="form-group">
-            <label for="tripPrice_Lodging">Lodging</label>
-            <input name="tripPrice_Lodging" id="tripPrice_Lodging" type="text" required="required" ng-model="registerController.trip.prices.lodging" placeholder="Lodging" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label for="tripPrice_LiftTicket">Lift Ticket</label>
-            <input name="tripPrice_LiftTicket" id="tripPrice_LiftTicket" type="text" required="required" ng-model="registerController.trip.prices.liftTicket" placeholder="Lift Ticket" class="form-control"/>
-        </div>
-        <button class="btn btn-success" ng-click="registerController.createTrip(registerController.trip)">Save<!--ng-disabled="newPlacementForm.$invalid",--></button>
-        <button type="submit" class="btn btn-default" ng-click="registerController.returnToHome()">Cancel</button>
+<form name="registerTrip" class="form-horizontal">
+    <div class="form-group">
+        <label for="tripDestination" class="control-label col-sm-2">Trip Destination</label>
 
+        <div class=" col-sm-6">
+            <input class="form-control" name="tripDestination" id="tripDestination" type="text" required="required"
+                   ng-model="registerController.trip.destination" ng-auto-focus="ng-auto-focus"
+                   placeholder="Trip Destination"/>
+        </div>
     </div>
-</ng-form>
+    <div class="form-group">
+        <label for="tripLeaderName" class="control-label col-sm-2">Trip Leader Name</label>
+
+        <div class=" col-sm-6">
+            <input name="tripLeaderName" id="tripLeaderName" type="text" required="required"
+                   ng-model="registerController.trip.tripLeaderName" placeholder="Trip Leader Name"
+                   class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group" ng-hide="registerController.editForm">
+        <label for="password" class="control-label col-sm-2">Trip Password</label>
+
+        <div class=" col-sm-6">
+            <input name="password" id="password" type="password" required="required"
+                   ng-model="registerController.trip.password" placeholder="Trip Password" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="tripStartDate" class="control-label col-sm-2">Trip Start Date</label>
+
+        <div class=" col-sm-6">
+            <input name="tripStartDate" id="tripStartDate" type="text" required="required"
+                   ng-model="registerController.trip.startDate" placeholder="Trip Start Date" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="tripEndDate" class="control-label col-sm-2">Trip End Date</label>
+
+        <div class=" col-sm-6">
+            <input name="tripEndDate" id="tripEndDate" type="text" required="required"
+                   ng-model="registerController.trip.endDate" placeholder="Trip End Date" class="form-control"/>
+        </div>
+    </div>
+    <legend>Prices:</legend>
+    <div class="form-group">
+        <label for="tripPrice_Lodging" class="control-label col-sm-2">Lodging</label>
+
+        <div class=" col-sm-6">
+            <input name="tripPrice_Lodging" id="tripPrice_Lodging" type="text" required="required"
+                   ng-model="registerController.trip.prices.lodging" placeholder="Lodging" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="tripPrice_LiftTicket" class="control-label col-sm-2">Lift Ticket</label>
+
+        <div class=" col-sm-6">
+            <input name="tripPrice_LiftTicket" id="tripPrice_LiftTicket" type="text" required="required"
+                   ng-model="registerController.trip.prices.liftTicket" placeholder="Lift Ticket" class="form-control"/>
+        </div>
+    </div>
+    <button class="btn btn-success" ng-click="registerController.createTrip(registerController.trip)">Save
+        <!--ng-disabled="newPlacementForm.$invalid",--></button>
+    <button type="submit" class="btn btn-default" ng-click="registerController.returnToHome()">Cancel</button>
+
+</form>

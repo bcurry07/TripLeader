@@ -1,11 +1,28 @@
-<ng-form name="travelerForm" class="col-md-6">
-    <div class="fieldset">
+<div class="row">
+<ng-form name="travelerForm" class="col-md-6 form-horizontal">
         <div class="form-group">
-            <label for="travelerName">Traveler Name</label>
+            <label for="travelerName" class="col-sm-2">Traveler Name</label>
+            <div class="col-sm-6">
             <input name="travelerName" id="travelerName" type="text" required="required" ng-model="travelerController.traveler.name" ng-auto-focus="ng-auto-focus" placeholder="Traveler Name" class="form-control"/>
+            </div>
         </div>
-        <button class="btn btn-success" ng-click="travelerController.createTrip(travelerController.traveler)">Save<!--ng-disabled="newPlacementForm.$invalid",--></button>
+        <legend>Purchases</legend>
+        <div class="form-group">
+            <label ng-repeat="product in travelerController.products">
+                <input type="checkbox" ng-click="travelerController.check(product)"> {{product.item}}
+            </label>
+        </div>
+        <button class="btn btn-success" ng-click="travelerController.addTraveler(travelerController.traveler)">Add Traveler<!--ng-disabled="newPlacementForm.$invalid",--></button>
         <button type="submit" class="btn btn-default" ng-click="travelerController.returnToHome()">Cancel</button>
 
-    </div>
 </ng-form>
+
+</div>
+
+<div class="well">
+    <h3>Purchases:</h3>
+    <ul>
+        <li ng-repeat="purchase in travelerController.purchases">{{purchase.item}} : {{purchase.cost}}</li>
+    </ul>
+    <h3>Cost: {{travelerController.cartTotalCost}}</h3>
+</div>
